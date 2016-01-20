@@ -1,0 +1,55 @@
+Arrayclass
+==========
+
+Arrayclass is a class factory for generating Array based objects whose attributes can be accessed like those of a normal ruby object (or like an array). They are highly memory efficient (almost equivalent to an Array) and fast to work with.
+
+Features
+--------
+
+Arrayclass based objects are:
+* memory efficient - roughly the same space as a normal array
+* quickly instantiated with data
+
+Examples
+--------
+
+    require 'arrayclass'  
+
+    Person = Arrayclass.new(%w(name eye_color watch_brand))
+    # instantiate with an array
+    joe = Person.new(%w(Joe brown Casio))
+
+    # instantiate an empty object (an array of the expected size is created)
+    sally = Person.new
+    sally.name = 'Sally'
+    sally[0] == 'Sally' # true
+    
+### Access/modify attributes like a normal object
+
+    joe.name # 'Joe'
+    joe.watch_brand = 'Timex'
+
+### Use some array features
+
+    joe[1]    # 'brown'
+    joe[1..2] = ['blue', 'Fossil']
+    joe.each {|attribute| # do something with attribute }
+
+### Arrayclass derived classes can be subclassed
+
+    class BigPerson < Person
+      def some_new_function
+      end
+
+      # push on another attribute
+      self.add_member('shoe_type')
+
+      # (haven't written a remove_member function yet...)
+    end
+
+    BigPerson.new
+
+Installation
+------------
+
+    gem install arrayclass
